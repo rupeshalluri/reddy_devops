@@ -1,3 +1,11 @@
-FROM tomcat:8
+FROM centos
 MAINTAINER RUPESH
-COPY target/*.war /usr/local/tomcat/webapps/
+RUN mkdir -p/opt/jenkins/
+RUN useradd jenkins
+RUN yum install java-1.8.0-openjdk-devel-y
+COPY tomcat-7.0.72/opt/jenkins/
+RUN chown -R jenkins.jenkins/opt
+Copy jenkins.war/opt/jenkins/webapps
+USER jenkins
+CMD /opt/jenkins/bin/startup.sh && tail -f/dev/null
+EXPOSE 8080
